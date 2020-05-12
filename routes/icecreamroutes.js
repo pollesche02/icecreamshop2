@@ -1,50 +1,55 @@
-console.log("routes")
 var express = require("express");
 
 var router = express.Router();
+var db = require("../models/");
 
-
-var icecream = require("../models/icecream.js");
+// router.get("/", function (req, res) {
+//   res.redirect("/icecream");
+// });
 
 // Create all our routes and set up logic within those routes where required.
-router.get("/", function(req, res) {
-    console.log("route get")
-    icecream.all(function(data) {
+router.get("/", function (req, res) {
+ db.Icecream.findAll()
+  .then(function (db) {
+    console.log(db)
     var hbsObject = {
-      icecream: data
+      icecream: db,
     };
     console.log(hbsObject);
-     res.render("index", hbsObject);
+    res.render("index", hbsObject);
     //res.json(data)
   });
 });
 
-router.post("/api/icecream", function(req, res) {
-  icecream.create([
-    "icecream_flavor", "devoured"
-  ], [
-    req.body.name, 1
-    ], function(result) {
-    // Send back the ID of the new quote
-    res.json({ id: result.insertId });
-  });
+router.post("/api/icecream", function (req, res) {
+  db.Icecream.create({
+    icecream_flavor: req.body.name,
+    devoured: true,
+  }).
+    then(function (result) {
+      // Send back the ID of the new quote
+      res.json({ id: result.insertId });
+    });
 });
 
-router.put("/api/icecream/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
-
-  console.log("condition", condition);
-
-  icecream.update({
-    devoured: 0
-  }, condition, function(result) {
-    if (result.changedRows == 0) {
-     
-      return res.status(404).end();
-    } else {
-      res.status(200).end();
+router.put("/api/icecream/:id", function (req, res) {
+  db.Icecream.update(
+    {
+      devoured: false,
+    },
+    {
+      where: {
+        id: req.params.id,
+      },
+    },
+    function (result) {
+      if (result.changedRows == 0) {
+        return res.status(404).end();
+      } else {
+        res.status(200).end();
+      }
     }
-  });
+  );
 });
 
 // Export routes for server.js to use.
