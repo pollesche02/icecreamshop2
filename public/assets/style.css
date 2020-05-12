@@ -1,0 +1,40 @@
+.jumbotron {
+    background-image: url("https://media.giphy.com/media/hgpGAn0ohglHO/giphy.gif");
+    padding-bottom: 100px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-family: Kristen ITC;
+    font-size: 45px;
+    text-align: center;
+}
+
+body {
+    background-image: url("./images/bodybackgroun.png")
+}
+
+.row{
+
+    margin-top:50px;
+}
+.btn{
+
+    background-color: #e7bd42;
+    color: white;
+    
+}
+
+h2 {
+    font-family: Kristen ITC;
+    font-size: 40px;
+}
+
+h3 {
+    font-family: Kristen ITC;
+    font-weight: bold;
+}
+
+.container {
+    text-align: center;
+}
