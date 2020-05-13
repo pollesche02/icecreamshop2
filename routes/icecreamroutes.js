@@ -47,7 +47,8 @@ router.put("/api/icecream/:id", function (req, res) {
       where: {
         id: req.params.id,
       },
-    }, function (result) {
+    }).then(
+      function (result) {
       if (result.changedRows == 0) {
         return res.status(404).end();
       } else {
