@@ -11,7 +11,8 @@ h1 {
 }
 
 body {
-    background-image: url("./images/bodybackgroun.png")
+    background-image: url("./images/bodybackgroun.png");
+    
 }
 
 .row{

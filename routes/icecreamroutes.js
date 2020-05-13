@@ -12,8 +12,14 @@ router.get("/", function (req, res) {
  db.Icecream.findAll()
   .then(function (db) {
     console.log(db)
+
+    var dbArray = db.map(elem=> {return {
+      id: elem.id,
+      icecream_flavor: elem.icecream_flavor,
+      devoured: elem.devoured
+    }})
     var hbsObject = {
-      icecream: db,
+      icecream: dbArray,
     };
     console.log(hbsObject);
     res.render("index", hbsObject);
@@ -41,8 +47,7 @@ router.put("/api/icecream/:id", function (req, res) {
       where: {
         id: req.params.id,
       },
-    },
-    function (result) {
+    }, function (result) {
       if (result.changedRows == 0) {
         return res.status(404).end();
       } else {
